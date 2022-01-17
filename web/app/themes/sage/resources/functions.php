@@ -6,6 +6,9 @@
 
 use Roots\Sage\Config;
 use Roots\Sage\Container;
+use OP\Support\Facades\ObjectPress;
+use OP\Support\Facades\Config as OP_Config;
+
 
 /**
  * Helper function for prettying up errors
@@ -149,3 +152,14 @@ if( function_exists('acf_add_options_page') ) {
     );
 }
 /* ACF theme options END */
+
+/**
+ * Adding `THEME_PATH . /config` folder to ObjectPress conf paths
+ */
+OP_Config::addPath(get_template_directory() . '/../config');
+
+/**
+ * Initiate app : Custom post types, Taxonomies, API routes...
+ * Reading `THEME_PATH . /config/app.php` conf file
+ */
+ObjectPress::init();
