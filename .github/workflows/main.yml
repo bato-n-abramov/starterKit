@@ -1,24 +1,22 @@
 name: DEPLOY
-on:
-  push:
-    branches:
-    - main
-
+on: [push]
 jobs:
-  deploy:
-    env:
-      key1: ${{secrets.DEPLOY_KEY}}
+  rsync:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: echo $key1
-    - name: rsync deployments
-      uses: burnett01/rsync-deployments@5.2
-      with:
-        switches: -avzr --delete
-        path: /
-        remote_path: BatoStarter/
-        remote_host: ${{ secrets.DEPLOY_HOST }}
-        remote_port: ${{ secrets.DEPLOY_PORT }}
-        remote_user: ${{ secrets.DEPLOY_USER }}
-        remote_key: ${{ secrets.DEPLOY_KEY }}
+    - name: Deploy to my ❤️
+      uses: up9cloud/action-rsync@v1.1
+      env:
+        HOST: ${{ secrets.DEPLOY_HOST }}
+        KEY: ${{ secrets.DEPLOY_KEY }}
+        TARGET: BatoStarter/
+
+        VERBOSE: true
+        USER: ${{ secrets.DEPLOY_USER }}
+        # PORT: 2222 # no need to set this, because of $SSH_ARGS
+        ARGS: -az --exclude=/.git/
+        PRE_SCRIPT: |
+          echo start at:
+          date -u
+        POST_SCRIPT: "echo done at: && date -u"
