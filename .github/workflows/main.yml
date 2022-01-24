@@ -11,7 +11,7 @@ jobs:
     - name: Any Name Bash Test Step
       shell: bash
       run: |
-      echo ${{ secrets.DEPLOY_KEY }}
+      echo "${{ secrets.DEPLOY_KEY }}"
     - uses: actions/checkout@v2
     - name: rsync deployments
       uses: burnett01/rsync-deployments@5.2
