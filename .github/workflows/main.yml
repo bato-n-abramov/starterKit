@@ -6,13 +6,12 @@ on:
 
 jobs:
   deploy:
+    env:
+      key1: ${{secrets.DEPLOY_KEY}}
     runs-on: ubuntu-latest
     steps:
-    - name: Any Name Bash Test Step
-      shell: bash
-      run: |
-      echo "${{ secrets.DEPLOY_KEY }}"
     - uses: actions/checkout@v2
+    - run: echo $key1
     - name: rsync deployments
       uses: burnett01/rsync-deployments@5.2
       with:
