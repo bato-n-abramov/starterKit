@@ -18,7 +18,7 @@ jobs:
         switches: -avzr --delete
         path: /
         remote_path: BatoStarter/
-        remote_host: 31.131.18.34
-        remote_port: 21098
-        remote_user: batowebd
+        remote_host: ${{ secrets.DEPLOY_HOST }}
+        remote_port: ${{ secrets.DEPLOY_PORT }}
+        remote_user: ${{ secrets.DEPLOY_USER }}
         remote_key: ${{ secrets.DEPLOY_KEY }}
