@@ -84,7 +84,6 @@ jobs:
       #   run: npm run build:deploy
       - name: Composer dependencies Theme
         run: |
-          pwd
           cd  /web/app/themes/sage
           composer install
       # Deploy with SSH
