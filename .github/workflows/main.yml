@@ -82,10 +82,10 @@ jobs:
 
       # - name: Build
       #   run: npm run build:deploy
-      - name: Composer dependencies Theme
-        run: |
-          cd  /web/app/themes/sage
-          composer install
+      - name: Composer theme
+              working-directory: ./web/app/themes/sage
+              run: |
+                composer install --prefer-dist
       # Deploy with SSH
       - name: Copying files to server
         uses: appleboy/scp-action@master
