@@ -83,7 +83,7 @@ jobs:
       # - name: Build
       #   run: npm run build:deploy
       - name: Composer dependencies Theme
-          run: | 
+          run:  
            cd /web/app/themes/sage
            composer install
           key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
