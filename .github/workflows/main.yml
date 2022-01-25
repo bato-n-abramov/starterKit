@@ -78,6 +78,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install Dependencies
+        with:
         path: /web/app/themes/sage
         run: npm install
 
