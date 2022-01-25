@@ -70,7 +70,7 @@ jobs:
         env:
           cache-name: cache-node-modules
         with:
-          path: /web/app/themes/sage
+          path: ~/.npm
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-${{ env.cache-name }}-
@@ -78,7 +78,9 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install Dependencies
-        run: npm install
+        run: | 
+        cd /web/app/themes/sage
+        npm install
 
       - name: Build
         run: npm run build:deploy
