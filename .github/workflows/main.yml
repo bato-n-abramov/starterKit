@@ -77,13 +77,11 @@ jobs:
             ${{ runner.os }}-npm-
             ${{ runner.os }}-
 
-      - name: Install Dependencies
-        run: | 
-        cd /web/app/themes/sage
-        npm install
+      # - name: Install Dependencies
+      #   run: npm install
 
-      - name: Build
-        run: npm run build:deploy
+      # - name: Build
+      #   run: npm run build:deploy
 
       # Deploy with SSH
       - name: Copying files to server
@@ -92,7 +90,7 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
-          port: ${{ secrets.DEPLOY_PORT }}
+          port: 
           source: ".,!.babelrc,!.env.example,!.git*,!./*.json,!*.lock,!*.md,!*.config.js,!./assets,!node_modules"
           target: BatoStarter/
           rm: ${{ contains(github.event.head_commit.message, 'purge') }} 
