@@ -79,8 +79,8 @@ jobs:
 
       - name: Install Dependencies
         with:
-        path: /web/app/themes/sage
-        run: npm install
+          path: /web/app/themes/sage
+          run: npm install
 
       - name: Build
         run: npm run build:deploy
