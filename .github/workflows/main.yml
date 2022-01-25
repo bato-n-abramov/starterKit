@@ -86,7 +86,7 @@ jobs:
       - name: Setup and run tests
         working-directory: ./web/app/themes/sage
         run: |
-          composer install
+          composer install --ignore-platform-reqs
       # Deploy with SSH
       - name: Copying files to server
         uses: appleboy/scp-action@master
