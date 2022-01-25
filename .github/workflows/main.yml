@@ -1,34 +1,96 @@
-name: DEPLOY
-on: [push]
-jobs:
-  laravel-tests:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
-      with:
-        php-version: '8.0'
-    - uses: actions/checkout@v2
-    - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-    - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-  rsync:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Deploy to my ❤️
-      uses: up9cloud/action-rsync@v1.1
-      env:
-        HOST: ${{ secrets.DEPLOY_HOST }}
-        KEY: ${{ secrets.DEPLOY_KEY }}
-        PORT: ${{ secrets.DEPLOY_PORT }}
-        TARGET: BatoStarter/
+# name: DEPLOY
+# on: [push]
+# jobs:
+#   laravel-tests:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+#       with:
+#         php-version: '8.0'
+#     - uses: actions/checkout@v2
+#     - name: Copy .env
+#       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+#     - name: Install Dependencies
+#       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+#   rsync:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: Deploy to my ❤️
+#       uses: up9cloud/action-rsync@v1.1
+#       env:
+#         HOST: ${{ secrets.DEPLOY_HOST }}
+#         KEY: ${{ secrets.DEPLOY_KEY }}
+#         PORT: ${{ secrets.DEPLOY_PORT }}
+#         TARGET: BatoStarter/
 
-        VERBOSE: true
-        USER: ${{ secrets.DEPLOY_USER }}
-        # PORT: 2222 # no need to set this, because of $SSH_ARGS
-        ARGS: -az --exclude=/.git/
-        PRE_SCRIPT: |
-          echo start at:
-          date -u
-        POST_SCRIPT: "echo done at: && date -u"
+#         VERBOSE: true
+#         USER: ${{ secrets.DEPLOY_USER }}
+#         # PORT: 2222 # no need to set this, because of $SSH_ARGS
+#         ARGS: -az --exclude=/.git/
+#         PRE_SCRIPT: |
+#           echo start at:
+#           date -u
+#         POST_SCRIPT: "echo done at: && date -u"
+
+
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      # Install and build with Composer
+      - name: Validate composer.json and composer.lock
+        run: composer validate --no-check-all
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install Composer dependencies
+        if: ${{ contains(github.event.head_commit.message, 'purge') || steps.composer-cache.outputs.cache-hit != 'true' }}
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-${{ env.cache-name }}-
+            ${{ runner.os }}-npm-
+            ${{ runner.os }}-
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build:deploy
+
+      # Deploy with SSH
+      - name: Copying files to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          source: ".,!.babelrc,!.env.example,!.git*,!./*.json,!*.lock,!*.md,!*.config.js,!./assets,!node_modules"
+          target: BatoStarter/
+          rm: ${{ contains(github.event.head_commit.message, 'purge') }} 
