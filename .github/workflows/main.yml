@@ -90,7 +90,7 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
-          port: 
+          port: ${{ secrets.DEPLOY_PORT }}
           source: ".,!.babelrc,!.env.example,!.git*,!./*.json,!*.lock,!*.md,!*.config.js,!./assets,!node_modules"
           target: BatoStarter/
           rm: ${{ contains(github.event.head_commit.message, 'purge') }} 
