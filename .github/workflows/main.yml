@@ -82,7 +82,11 @@ jobs:
 
       # - name: Build
       #   run: npm run build:deploy
-
+      - name: Composer dependencies Theme
+        uses: actions/cache@v2
+        with:
+          path: /web/app/themes/sage
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
       # Deploy with SSH
       - name: Copying files to server
         uses: appleboy/scp-action@master
