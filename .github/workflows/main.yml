@@ -56,11 +56,17 @@ jobs:
         run:  composer install --ignore-platform-reqs
 
       # - name: Install Dependencies
-      - uses: actions/checkout@v1
-      - name: Install node modules in theme
+      - uses: actions/setup-node@v1.1.0
+          with:
+          version: 12.x
+      - name: Install dependencies
         working-directory: ./web/app/themes/sage
         run: |
-            yarn install
+          yarn
+      # - name: Install node modules in theme
+      #   working-directory: ./web/app/themes/sage
+      #   run: |
+      #       yarn install
       # - name: Build
       #   run: npm run build:deploy
       - uses: actions/checkout@v1
