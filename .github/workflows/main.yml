@@ -57,7 +57,10 @@ jobs:
 
       - name: Install composer in theme
         working-directory: ./web/app/themes/sage
-        run: |
+        - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+        - run: |
           composer install --ignore-platform-reqs
 
       - name: Install node modules in theme
