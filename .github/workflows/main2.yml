@@ -1,0 +1,46 @@
+name: Build and deploy
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  buildComposer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # Install and build with Composer
+      - name: Validate composer.json and composer.lock
+        run: composer validate --no-check-all
+
+      - name: Install Composer dependencies root
+        run:  composer install --ignore-platform-reqs
+
+      - name: Install composer in theme
+        working-directory: ./web/app/themes/sage
+        run: |
+          composer install --ignore-platform-reqs
+  
+  buildNodeModules:
+    runs-on: ubuntu-latest
+    steps: 
+        - uses: actions/checkout@v2
+        - uses: actions/setup-node@v2
+          with:
+            node-version: '14'
+        - name: Install node modules 
+          working-directory: ./web/app/themes/sage 
+        - run: yarn install
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Copying files to server
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.DEPLOY_HOST }}
+        username: ${{ secrets.DEPLOY_USER }}
+        port: ${{ secrets.DEPLOY_PORT }}
+        key: ${{ secrets.DEPLOY_KEY }}
+        source: ".,!.babelrc,!.env.example,!.git*,!./*.json,!*.lock,!*.md,!*.config.js,!./assets,!node_modules"
+        target: BatoStarter/     
