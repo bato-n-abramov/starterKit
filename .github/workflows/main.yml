@@ -60,7 +60,7 @@ jobs:
       - name: Install node modules in theme
         working-directory: ./web/app/themes/sage
         run: |
-            npm install
+            yarn install
       # - name: Build
       #   run: npm run build:deploy
       - uses: actions/checkout@v1
