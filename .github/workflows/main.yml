@@ -60,8 +60,10 @@ jobs:
         run: |
           composer install --ignore-platform-reqs
 
-      - name: Install node modules in theme
+    
+      - name: Setup Node.js
         working-directory: ./web/app/themes/sage
+        uses: actions/setup-node@v2
         with:
           node-version: '12'
         run: |
@@ -69,6 +71,12 @@ jobs:
           node -v
           yarn -v
           yarn  install --silent
+      # - name: Install node modules in theme
+      #   working-directory: ./web/app/themes/sage
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: '12'
+        
 
       # Deploy with SSH
       - name: Copying files to server
