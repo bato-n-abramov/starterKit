@@ -30,7 +30,7 @@ jobs:
             node-version: '14'
         - name: Install node modules 
           working-directory: ./web/app/themes/sage 
-        - run: yarn install
+          run: yarn install
 
   deploy:
     name: Deploy
