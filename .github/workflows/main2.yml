@@ -44,6 +44,6 @@ jobs:
         host: ${{ secrets.DEPLOY_HOST }}
         username: ${{ secrets.DEPLOY_USER }}
         port: ${{ secrets.DEPLOY_PORT }}
-        key: ${{ secrets.DEPLOY_KEY }}
+        key: test
         source: ".,!.babelrc,!.env.example,!.git*,!./*.json,!*.lock,!*.md,!*.config.js,!./assets,!node_modules"
         target: BatoStarter/   
