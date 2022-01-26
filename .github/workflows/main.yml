@@ -62,7 +62,10 @@ jobs:
 
       - name: Install node modules in theme
         working-directory: ./web/app/themes/sage
-        run: yarn --frozen-lockfile --silent
+        run: 
+        node -v
+        yarn -v
+        yarn --frozen-lockfile --silent
 
       # Deploy with SSH
       - name: Copying files to server
