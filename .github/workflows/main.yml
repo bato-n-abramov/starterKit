@@ -62,7 +62,6 @@ jobs:
             ${{ runner.os }}-php-
 
       - name: Install Composer dependencies
-        if: ${{ contains(github.event.head_commit.message, 'purge') || steps.composer-cache.outputs.cache-hit != 'true' }}
         run: composer install
 
       - name: Cache node modules
@@ -83,7 +82,7 @@ jobs:
       # - name: Build
       #   run: npm run build:deploy
       - uses: actions/checkout@v1
-      - name: Setup and run tests
+      - name: Install composer in theme
         working-directory: ./web/app/themes/sage
         run: |
           composer install --ignore-platform-reqs
