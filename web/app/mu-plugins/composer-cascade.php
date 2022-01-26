@@ -22,7 +22,7 @@ foreach (new RecursiveIteratorIterator($files) as $filePath) {
 
 // Execute composer install on foud paths
 foreach ($paths as $path) {
-    $cmd = sprintf('cd %s && composer --no-interaction --ansi %s', $path, $argv[1]);
+    $cmd = sprintf('cd %s && composer --ignore-platform-reqs %s', $path, $argv[1]);
     echo sprintf("\n\n——— Running composer in [ %s ]\n————————— cmd: %s\n\n", $path, $cmd);
     echo shell_exec($cmd);
 }
