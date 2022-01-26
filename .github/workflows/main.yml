@@ -63,7 +63,7 @@ jobs:
     
       - name: Setup node 12
         working-directory: ./web/app/themes/sage
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v1
         with:
           node-version: 12.x
       - run: yarn 
