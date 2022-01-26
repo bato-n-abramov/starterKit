@@ -45,16 +45,17 @@ jobs:
       # Install and build with Composer
       - name: Validate composer.json and composer.lock
         run: composer validate --no-check-all
+
       - name: Install Composer dependencies root
         run:  composer install --ignore-platform-reqs
+
       - name: Install composer in theme
         working-directory: ./web/app/themes/sage
         run: |
           composer install --ignore-platform-reqs
+          
       - name: Install node modules in theme
         working-directory: ./web/app/themes/sage
-        uses: actions/setup-node@v2
-        with:
         node-version: '14'
       - run: npm install
       - run: npm test
