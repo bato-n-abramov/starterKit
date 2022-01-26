@@ -43,8 +43,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       # Install and build with Composer
-      - name: Validate composer.json and composer.lock
-        run: composer validate --no-check-all
       - name: Install Composer dependencies root
 
         run:  composer install --ignore-platform-reqs
