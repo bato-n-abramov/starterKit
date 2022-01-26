@@ -62,7 +62,7 @@ jobs:
 
       - name: Install node modules in theme
         working-directory: ./web/app/themes/sage
-        run: 
+        run: |
         node -v
         yarn -v
         yarn --frozen-lockfile --silent
