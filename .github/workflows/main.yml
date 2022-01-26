@@ -75,8 +75,7 @@ jobs:
         working-directory: ./web/app/themes/sage
         run: |
           composer install --ignore-platform-reqs
-
-      - uses: bahmutov/npm-install@v1
+      - uses: actions/checkout@v1
       - name: Install node modules
           working-directory: ./web/app/themes/sage
           run: yarn --frozen-lockfile --silent
