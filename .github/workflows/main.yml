@@ -63,9 +63,9 @@ jobs:
       - name: Install node modules in theme
         working-directory: ./web/app/themes/sage
         uses: actions/setup-node@v2
-        with:
-          node-version: '12'
-        run: yarn install
+          with:
+            node-version: '12'
+      - run: yarn install
 
       # Deploy with SSH
       - name: Copying files to server
