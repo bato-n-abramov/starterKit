@@ -76,12 +76,11 @@ jobs:
         run: |
           composer install --ignore-platform-reqs
 
-      - uses: actions/setup-node@v1.1.0
-      - name: Install dependencies
-        run: |
-          yarn
-      - name: Build
-        run: yarn build    
+      - uses: bahmutov/npm-install@v1
+          with:
+            working-directory: ./web/app/themes/sage
+      - name: Install node modules
+          run: yarn --frozen-lockfile --silent
 
       # Deploy with SSH
       - name: Copying files to server
