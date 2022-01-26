@@ -55,11 +55,11 @@ jobs:
       - name: Install Composer dependencies root
         run:  composer install --ignore-platform-reqs
 
-      # - name: Install Dependencies
-      - uses: actions/setup-node@v1.1.0
+      - name: Install Dependencies
+        uses: actions/setup-node@v1.1.0
           with:
           version: 12.x
-      - name: Install dependencies
+      # - name: Install dependencies
         working-directory: ./web/app/themes/sage
         run: |
           yarn
