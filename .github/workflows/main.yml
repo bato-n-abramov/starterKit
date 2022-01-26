@@ -47,7 +47,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
       # Install and build with Composer
       - name: Validate composer.json and composer.lock
         run: composer validate --no-check-all
@@ -55,13 +54,11 @@ jobs:
       - name: Install Composer dependencies root
         run:  composer install --ignore-platform-reqs
 
-      - uses: actions/checkout@v1
       - name: Install composer in theme
         working-directory: ./web/app/themes/sage
         run: |
           composer install --ignore-platform-reqs
 
-      - uses: actions/checkout@v1
       - name: Install node modules in theme
         working-directory: ./web/app/themes/sage
         run: yarn --frozen-lockfile --silent
