@@ -55,30 +55,16 @@ jobs:
       - name: Install Composer dependencies root
         run:  composer install --ignore-platform-reqs
 
-
-      # - name: Install Dependencies
-      #   uses: actions/setup-node@v1.1.0
-      #     with:
-      #     version: 12.x
-      # # - name: Install dependencies
-      #   working-directory: ./web/app/themes/sage
-      #   run: |
-      #     yarn
-      # - name: Install node modules in theme
-      #   working-directory: ./web/app/themes/sage
-      #   run: |
-      #       yarn install
-      # - name: Build
-      #   run: npm run build:deploy
       - uses: actions/checkout@v1
       - name: Install composer in theme
         working-directory: ./web/app/themes/sage
         run: |
           composer install --ignore-platform-reqs
+
       - uses: actions/checkout@v1
-      - name: Install node modules
-          working-directory: ./web/app/themes/sage
-          run: yarn --frozen-lockfile --silent
+      - name: Install node modules in theme
+        working-directory: ./web/app/themes/sage
+        run: yarn --frozen-lockfile --silent
 
       # Deploy with SSH
       - name: Copying files to server
