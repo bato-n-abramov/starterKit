@@ -43,31 +43,23 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       # Install and build with Composer
+      - name: Validate composer.json and composer.lock
+        run: composer validate --no-check-all
       - name: Install Composer dependencies root
         run:  composer install --ignore-platform-reqs
-
       - name: Install composer in theme
         working-directory: ./web/app/themes/sage
         run: |
           composer install --ignore-platform-reqs
-  build2: 
-    runs-on: ubuntu-latest
-    steps:
-      uses: actions/checkout@v2
-    - name: install node modules
-      working-directory: ./web/app/themes/sage
-    - uses: actions/setup-node@v2
-      with:
-        node-version: 12
-    - run: 
-        node -v
-        yarn -v
-        yarn install
-
-# Deploy with SSH
-  deploy:
-    runs-on: ubuntu-latest
-    steps: 
+      - name: Install node modules in theme
+        working-directory: ./web/app/themes/sage
+        run: |
+          pwd
+          node -v
+          yarn -v
+          yarn --frozen-lockfile --silent
+          yarn  install
+      # Deploy with SSH
       - name: Copying files to server
         uses: appleboy/scp-action@master
         with:
