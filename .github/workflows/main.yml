@@ -61,16 +61,12 @@ jobs:
           composer install --ignore-platform-reqs
 
     
-      - name: Setup Node.js
+      - name: Setup node 12
         working-directory: ./web/app/themes/sage
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v1
         with:
-          node-version: '12'
-        run: |
-          pwd
-          node -v
-          yarn -v
-          yarn  install --silent
+          node-version: 12.x
+      - run: yarn 
       # - name: Install node modules in theme
       #   working-directory: ./web/app/themes/sage
       #   uses: actions/setup-node@v2
