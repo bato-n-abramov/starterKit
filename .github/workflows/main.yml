@@ -66,7 +66,7 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - run: yarn 
+        run: yarn 
       # - name: Install node modules in theme
       #   working-directory: ./web/app/themes/sage
       #   uses: actions/setup-node@v2
