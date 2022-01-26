@@ -66,7 +66,7 @@ jobs:
           pwd
           node -v
           yarn -v
-          yarn --frozen-lockfile --silent
+          yarn  install
 
       # Deploy with SSH
       - name: Copying files to server
