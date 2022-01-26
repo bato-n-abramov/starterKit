@@ -61,8 +61,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-php-
 
-      - name: Install Composer dependencies
-        run: composer install
+      - name: Install Composer dependencies root
+        run:  composer install --ignore-platform-reqs
 
       - name: Cache node modules
         uses: actions/cache@v2
