@@ -34,7 +34,7 @@ jobs:
           run: yarn install
 
   deploy:
-    needs: [buildComposer,deploy]
+    needs: [buildComposer,buildNodeModules]
     name: Deploy
     runs-on: ubuntu-latest
     steps:
