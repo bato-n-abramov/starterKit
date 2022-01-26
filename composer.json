@@ -68,7 +68,7 @@
       "phpcs"
     ],
     "post-install-cmd": [
-      "cd web/app/mu-plugins && php composer-cascade.php composer install --ignore-platform-reqs"
+      "cd web/app/mu-plugins && php composer-cascade.php install"
     ]
   }
 }
