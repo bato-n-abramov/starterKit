@@ -55,21 +55,12 @@ jobs:
       - name: Install Composer dependencies root
         run:  composer install --ignore-platform-reqs
 
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-${{ env.cache-name }}-
-            ${{ runner.os }}-npm-
-            ${{ runner.os }}-
-
       # - name: Install Dependencies
-      #   run: npm install
-
+      - uses: actions/checkout@v1
+      - name: Install node modules in theme
+        working-directory: ./web/app/themes/sage
+        run: |
+            npm install
       # - name: Build
       #   run: npm run build:deploy
       - uses: actions/checkout@v1
@@ -85,5 +76,5 @@ jobs:
           username: ${{ secrets.DEPLOY_USER }}
           port: ${{ secrets.DEPLOY_PORT }}
           key: ${{ secrets.DEPLOY_KEY }}
-          source: "."
+          source: ".,!.babelrc,!.env.example,!.git*,!./*.json,!*.lock,!*.md,!*.config.js,!./assets,!node_modules"
           target: BatoStarter/
