@@ -57,13 +57,10 @@ jobs:
       - name: Install node modules in theme
         working-directory: ./web/app/themes/sage
         node-version: '14'
-        run: npm install
-        run: npm test
         run: |
           pwd
           node -v
-          yarn -v
-          yarn --frozen-lockfile --silent
+          nvm use 14.0.0
           yarn  install
 
       # Deploy with SSH
