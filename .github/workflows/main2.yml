@@ -28,7 +28,9 @@ jobs:
           with:
             node-version: '14'
         - name: Install node modules 
-          run: yarn install
+          run: 
+          cd web/app/themes/sage
+          yarn install
 
   deploy:
     name: Deploy
