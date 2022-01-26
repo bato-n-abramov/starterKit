@@ -59,7 +59,7 @@ jobs:
     - name: install node modules
       working-directory: ./web/app/themes/sage
       uses: actions/setup-node@v2
-        with:
+      with:
         node-version: 12
       run: 
         node -v
