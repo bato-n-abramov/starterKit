@@ -23,12 +23,12 @@ jobs:
   
   buildNodeModules:
     runs-on: ubuntu-latest
-    steps: 
+    steps:
+        - name: Install node modules 
+        working-directory: web/app/themes/sage  
         - uses: actions/setup-node@v2
           with:
             node-version: '14'
-        - name: Install node modules 
-          working-directory: web/app/themes/sage 
           run: yarn install
 
   deploy:
