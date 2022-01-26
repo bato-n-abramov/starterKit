@@ -54,17 +54,17 @@ jobs:
           composer install --ignore-platform-reqs
   build2: 
     runs-on: ubuntu-latest
-      steps:
-      - uses: actions/checkout@v2
-      - name: install node modules
-        working-directory: ./web/app/themes/sage
-        uses: actions/setup-node@v2
-          with:
-          node-version: 12
-        run: 
-          node -v
-          yarn -v
-          yarn install
+    steps:
+    - uses: actions/checkout@v2
+    - name: install node modules
+      working-directory: ./web/app/themes/sage
+      uses: actions/setup-node@v2
+        with:
+        node-version: 12
+      run: 
+        node -v
+        yarn -v
+        yarn install
 
   deploy:
     runs-on: ubuntu-latest
