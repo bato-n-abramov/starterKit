@@ -56,7 +56,6 @@ jobs:
           
       - name: Install node modules in theme
         working-directory: ./web/app/themes/sage
-        node-version: '14'
         run: |
           pwd
           node -v
