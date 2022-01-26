@@ -66,10 +66,10 @@ jobs:
         yarn -v
         yarn install
 
+# Deploy with SSH
   deploy:
     runs-on: ubuntu-latest
-      steps: 
-        # Deploy with SSH
+    steps: 
       - name: Copying files to server
         uses: appleboy/scp-action@master
         with:
