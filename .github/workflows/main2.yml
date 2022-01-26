@@ -48,7 +48,7 @@ jobs:
         TARGET: BatoStarter/
         VERBOSE: true
         USER: ${{ secrets.DEPLOY_USER }}
-        ARGS: -az --exclude=/.git/
+        ARGS: -az --exclude=/.git/ --include=/vendor
         PRE_SCRIPT: |
           echo start at:
           date -u
