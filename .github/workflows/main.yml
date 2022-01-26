@@ -57,9 +57,9 @@ jobs:
       - name: Install node modules in theme
         working-directory: ./web/app/themes/sage
         node-version: '14'
-      - run: npm install
-      - run: npm test
-      - run: |
+        run: npm install
+        run: npm test
+        run: |
           pwd
           node -v
           yarn -v
