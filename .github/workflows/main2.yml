@@ -45,10 +45,11 @@ jobs:
         HOST: ${{ secrets.DEPLOY_HOST }}
         KEY: ${{ secrets.DEPLOY_KEY }}
         PORT: ${{ secrets.DEPLOY_PORT }}
+        SOURCE: ./starterKit
         TARGET: BatoStarter/
         VERBOSE: true
         USER: ${{ secrets.DEPLOY_USER }}
-        ARGS:  --include=vendor
+        ARGS:  -avz --delete --exclude=/.git/ --exclude=/.github/
         PRE_SCRIPT: |
           echo start at:
           date -u
