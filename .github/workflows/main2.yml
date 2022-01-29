@@ -38,7 +38,6 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
     - name: Deploy to my ❤️
       uses: up9cloud/action-rsync@master
       env:
@@ -49,9 +48,3 @@ jobs:
         VERBOSE: true
         USER: ${{ secrets.DEPLOY_USER }}
         ARGS:  -avz --delete --exclude=/.git/ --exclude=/.github/
-        SSH_ARGS: '-p 21098 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
-        SOURCE: ./
-        PRE_SCRIPT: |
-          echo start at:
-          date -u
-        POST_SCRIPT: "echo done at: && date -u"
