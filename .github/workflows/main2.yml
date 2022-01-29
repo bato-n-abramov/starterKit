@@ -49,6 +49,8 @@ jobs:
         VERBOSE: true
         USER: ${{ secrets.DEPLOY_USER }}
         ARGS:  -avz --delete --exclude=/.git/ --exclude=/.github/
+        SSH_ARGS: '-p 21098 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+        SOURCE: ./public/
         PRE_SCRIPT: |
           echo start at:
           date -u
