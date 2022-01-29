@@ -40,12 +40,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Deploy to my ❤️
-      uses: up9cloud/action-rsync@v1.1
+      uses: up9cloud/action-rsync@master
       env:
         HOST: ${{ secrets.DEPLOY_HOST }}
         KEY: ${{ secrets.DEPLOY_KEY }}
         PORT: ${{ secrets.DEPLOY_PORT }}
-        SOURCE: starterKit/
+        SOURCE: starterKit
         TARGET: BatoStarter/
         VERBOSE: true
         USER: ${{ secrets.DEPLOY_USER }}
