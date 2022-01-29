@@ -45,7 +45,6 @@ jobs:
         HOST: ${{ secrets.DEPLOY_HOST }}
         KEY: ${{ secrets.DEPLOY_KEY }}
         PORT: ${{ secrets.DEPLOY_PORT }}
-        SOURCE: ./
         TARGET: BatoStarter/
         VERBOSE: true
         USER: ${{ secrets.DEPLOY_USER }}
