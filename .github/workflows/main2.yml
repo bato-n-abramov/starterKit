@@ -45,7 +45,7 @@ jobs:
         HOST: ${{ secrets.DEPLOY_HOST }}
         KEY: ${{ secrets.DEPLOY_KEY }}
         PORT: ${{ secrets.DEPLOY_PORT }}
-        TARGET: BatoStarter/
+        TARGET: BatoStarter/test
         VERBOSE: true
         USER: ${{ secrets.DEPLOY_USER }}
         ARGS:  -avz --delete --exclude=/.git/ --exclude=/.github/
