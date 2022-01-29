@@ -45,7 +45,7 @@ jobs:
             key: ${{ secrets.DEPLOY_KEY }}
             known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
         - name: Deploy with rsync
-          run: rsync -avz ./ ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/home2/batowebd/bato-starter
+          run: rsync -avz "ssh -p 21098" ./ ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/home2/batowebd/bato-starter
     # - name: Deploy to my ❤️
 
     #   uses: up9cloud/action-rsync@master
