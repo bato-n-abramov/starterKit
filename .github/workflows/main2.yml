@@ -90,4 +90,5 @@ jobs:
         key: ${{ secrets.DEPLOY_KEY }}
         port: ${{ secrets.DEPLOY_PORT }}
         script: |
-          cd bato-starter &&  $SSH_COMPOSER install
+          cd bato-starter
+          $SSH_COMPOSER install
