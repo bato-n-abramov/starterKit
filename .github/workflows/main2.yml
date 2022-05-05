@@ -107,6 +107,6 @@ jobs:
           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
           nvm install --lts
           node -v
-          npm -v
+          npm i yarn
           cd bato-starter && composer install --no-dev
-          cd web/app/themes/sage && composer install --no-dev && npm i
+          cd web/app/themes/sage && composer install --no-dev && yarn
