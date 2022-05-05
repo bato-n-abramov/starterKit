@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@dump('test')
 @section('content')
   @include('partials.page-header')
 
