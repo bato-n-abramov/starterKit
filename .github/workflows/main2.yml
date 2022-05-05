@@ -75,7 +75,7 @@
 name: remote ssh command
 on: [push]
 env:
-  SSH_COMPOSER: "/usr/local/etc/php/7.4 ~/composer.phar"
+  SSH_COMPOSER: "/usr/local/etc/php/7.4 ~/usr/local/bin/composer.phar"
 jobs:
 
   build:
