@@ -132,8 +132,8 @@ jobs:
       #     pwd
       #     yarn  install
       - uses: actions/setup-node@v2
-          with:
-            node-version: '14'
+        with:
+          node-version: '14'
         - name: Install node modules 
           working-directory: ./web/app/themes/sage
           run: yarn install
