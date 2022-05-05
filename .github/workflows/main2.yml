@@ -103,10 +103,8 @@ jobs:
         key: ${{ secrets.DEPLOY_KEY }}
         port: ${{ secrets.DEPLOY_PORT }}
         script: |
-          export NVM_DIR="$HOME/.nvm"
-          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-          nvm install --lts
-          node -v
+          export NVM_DIR="$HOME/bin"
+          [ -s "$NVM_DIR/yarn" ] && \. "$NVM_DIR/yarn"
           npm -v
           cd bato-starter && composer install --no-dev
           cd web/app/themes/sage && composer install --no-dev && yarn
