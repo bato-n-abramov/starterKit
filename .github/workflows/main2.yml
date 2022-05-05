@@ -109,4 +109,4 @@ jobs:
           node -v
           npm -v
           cd bato-starter && composer install --no-dev
-          cd web/app/themes/sage && composer install --no-dev
+          cd web/app/themes/sage && composer install --no-dev && yarn
