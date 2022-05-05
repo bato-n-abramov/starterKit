@@ -105,6 +105,6 @@ jobs:
         script: |
           export NVM_DIR=~/.nvm
           source ~/.nvm/nvm.sh
+          npm --help
           cd bato-starter && composer install --no-dev
           cd web/app/themes/sage && composer install --no-dev
-          yarn install
