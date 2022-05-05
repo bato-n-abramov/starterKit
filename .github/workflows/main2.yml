@@ -71,6 +71,9 @@
 #     #     ARGS:  -avz --delete --exclude=/.git/ --exclude=/.github/
 
 
+env:
+  SSH_COMPOSER: "/usr/local/etc/php/7.4 ~/composer.phar"
+
 name: remote ssh command
 on: [push]
 jobs:
@@ -87,5 +90,4 @@ jobs:
         key: ${{ secrets.DEPLOY_KEY }}
         port: ${{ secrets.DEPLOY_PORT }}
         script: |
-          cd bato-starter
-          composer install
+          cd bato-starter &&  env.SSH_COMPOSER install
