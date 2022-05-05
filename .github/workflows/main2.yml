@@ -74,10 +74,7 @@
 
 name: remote ssh command
 on: [push]
-env:
-  SSH_COMPOSER: "/usr/local/etc/php/7.4 ~/usr/local/bin/composer.phar"
 jobs:
-
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -91,4 +88,4 @@ jobs:
         port: ${{ secrets.DEPLOY_PORT }}
         script: |
           cd bato-starter
-          $SSH_COMPOSER composer install --no-dev
+          composer install --no-dev
