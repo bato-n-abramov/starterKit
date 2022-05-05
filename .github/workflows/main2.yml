@@ -75,7 +75,23 @@
 name: remote ssh command
 on: [push]
 jobs:
+  deploy:
+      name: Deploy
+      runs-on: ubuntu-latest 
+      steps:
+          - uses: actions/checkout@v2
+          - name: Deploy to Server
+            uses: easingthemes/ssh-deploy@main
+            env:
+                SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+                ARGS: "-rltgoDzvO --delete"
+                SOURCE: "/"
+                REMOTE_HOST: ${{ secrets.DEPLOY_HOST }}
+                REMOTE_USER: ${{ secrets.DEPLOY_USER }}
+                REMOTE_PORT: 21098
+                TARGET: /home2/batowebd/bato-starter
   build:
+    needs: [deploy]
     name: Build
     runs-on: ubuntu-latest
     steps:
@@ -87,5 +103,5 @@ jobs:
         key: ${{ secrets.DEPLOY_KEY }}
         port: ${{ secrets.DEPLOY_PORT }}
         script: |
-          cd bato-starter
-          composer install --no-dev
+          cd bato-starter && composer install --no-dev
+          cd web/app/themes/sage && composer install && yarn 
