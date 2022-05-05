@@ -106,4 +106,5 @@ jobs:
           cd bato-starter && composer install --no-dev
           cd web/app/themes/sage && composer install --no-dev
           pwd
-          yarn -v
+          npm i yarn
+          yarn
