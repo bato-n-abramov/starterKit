@@ -91,4 +91,4 @@ jobs:
         port: ${{ secrets.DEPLOY_PORT }}
         script: |
           cd bato-starter
-          $SSH_COMPOSER install
+          $SSH_COMPOSER composer install --no-dev
