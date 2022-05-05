@@ -87,5 +87,5 @@ jobs:
         password: ${{ secrets.DEPLOY_KEY }}
         port: ${{ secrets.DEPLOY_PORT }}
         script: |
-        cd bato-starter
-        composer install
+          cd bato-starter
+          composer install
