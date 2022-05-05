@@ -130,8 +130,6 @@ jobs:
         working-directory: ./web/app/themes/sage
         run: |
           pwd
-          node -v
-          nvm use 14.0.0
           yarn  install
 
       # Deploy with SSH
