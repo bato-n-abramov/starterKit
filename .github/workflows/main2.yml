@@ -103,7 +103,8 @@ jobs:
         key: ${{ secrets.DEPLOY_KEY }}
         port: ${{ secrets.DEPLOY_PORT }}
         script: |
-          exec bash
-          npm -v
           cd bato-starter && composer install --no-dev
           cd web/app/themes/sage && composer install --no-dev
+          exec bash
+          pwd
+          yarn
