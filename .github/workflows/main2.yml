@@ -134,10 +134,10 @@ jobs:
             with:
               command: |
                 cd bato-starter 
-                pwd
-                cd web/app/themes/sage
-                pwd
                 composer install
+                cd web/app/themes/sage
+                composer install
+                yarn
               host: ${{ secrets.DEPLOY_HOST }}
               port: ${{ secrets.DEPLOY_PORT }}
               username: ${{ secrets.DEPLOY_USER }}
