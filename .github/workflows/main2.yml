@@ -137,6 +137,7 @@ jobs:
                 pwd
                 cd web/app/themes/sage
                 pwd
+                composer install
               host: ${{ secrets.DEPLOY_HOST }}
               port: ${{ secrets.DEPLOY_PORT }}
               username: ${{ secrets.DEPLOY_USER }}
