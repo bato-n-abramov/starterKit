@@ -133,7 +133,8 @@ jobs:
             uses: garygrossgarten/github-action-ssh@release
             with:
               command: |
-                cd bato-starter && composer install --no-dev
+                cd bato-starter 
+                pwd
                 cd web/app/themes/sage && composer install --no-dev && yarn
               host: ${{ secrets.DEPLOY_HOST }}
               port: ${{ secrets.DEPLOY_PORT }}
