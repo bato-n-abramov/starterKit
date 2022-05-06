@@ -108,4 +108,4 @@ jobs:
           nvm install --lts
           npm -v
           cd bato-starter && composer install --no-dev
-          cd web/app/themes/sage && composer install --no-dev && npm i && npm run build
+          cd web/app/themes/sage && composer install --no-dev && npm i && npm rebuild node-sass && npm run build
