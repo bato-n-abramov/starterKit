@@ -135,10 +135,9 @@ jobs:
               command: |
                 cd bato-starter 
                 pwd
-                cd web/app/themes/sage && composer install --no-dev && yarn
+                cd web/app/themes/sage
+                pwd
               host: ${{ secrets.DEPLOY_HOST }}
               port: ${{ secrets.DEPLOY_PORT }}
               username: ${{ secrets.DEPLOY_USER }}
               privateKey: ${{ secrets.DEPLOY_KEY }}
-            env:
-              CI: true
