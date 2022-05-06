@@ -75,23 +75,23 @@
 name: remote ssh command
 on: [push]
 jobs:
-  deploy:
-      name: Deploy
-      runs-on: ubuntu-latest 
-      steps:
-          - uses: actions/checkout@v2
-          - name: Deploy to Server
-            uses: easingthemes/ssh-deploy@main
-            env:
-                SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
-                ARGS: "-rltgoDzvO"
-                SOURCE: "/"
-                REMOTE_HOST: ${{ secrets.DEPLOY_HOST }}
-                REMOTE_USER: ${{ secrets.DEPLOY_USER }}
-                REMOTE_PORT: 21098
-                TARGET: /home2/batowebd/bato-starter
+  # deploy:
+  #     name: Deploy
+  #     runs-on: ubuntu-latest 
+  #     steps:
+  #         - uses: actions/checkout@v2
+  #         - name: Deploy to Server
+  #           uses: easingthemes/ssh-deploy@main
+  #           env:
+  #               SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+  #               ARGS: "-rltgoDzvO --exclude='/home2/batowebd/bato-starter/.env'  --exclude='/home2/batowebd/bato-starter/web/app/cache"
+  #               SOURCE: "/"
+  #               REMOTE_HOST: ${{ secrets.DEPLOY_HOST }}
+  #               REMOTE_USER: ${{ secrets.DEPLOY_USER }}
+  #               REMOTE_PORT: 21098
+  #               TARGET: /home2/batowebd/bato-starter
   build:
-    needs: [deploy]
+    # needs: [deploy]
     name: Build
     runs-on: ubuntu-latest
     steps:
@@ -108,4 +108,4 @@ jobs:
           nvm install --lts
           npm -v
           cd bato-starter && composer install --no-dev
-          cd web/app/themes/sage && composer install --no-dev && npm i
+          cd web/app/themes/sage && composer install --no-dev && npm i && npm run build
