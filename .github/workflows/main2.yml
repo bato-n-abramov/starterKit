@@ -145,23 +145,11 @@ jobs:
         if: ${{ contains(github.event.head_commit.message, 'purge') || steps.composer-cache.outputs.cache-hit != 'true' }}
         run: composer install --prefer-dist --no-progress --no-suggest
 
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-${{ env.cache-name }}-
-            ${{ runner.os }}-npm-
-            ${{ runner.os }}-
-
       - name: Install Dependencies
-        run: cd web/app/themes/sage && yarn
+        run: cd web/app/themes/sage && composer install
 
       - name: Build
-        run: cd web/app/themes/sage && npm run build:deploy
+        run: cd web/app/themes/sage && yarn build
 
       # Deploy with SSH
       - name: Copying files to server
