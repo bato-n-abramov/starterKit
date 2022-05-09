@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@dump('Another deploy 11111')
+@dump(get_stylesheet_directory())
 @section('content')
   @include('partials.page-header')
 
