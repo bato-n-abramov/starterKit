@@ -1,110 +1,171 @@
-# name: Build and deploy
-# on:
-#   push:
-#     branches: [main]
-#   pull_request:
-#     branches: [main]
-# jobs:
-#   buildComposer:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v2
-#       # Install and build with Composer
-#       - name: Validate composer.json and composer.lock
-#         run: composer validate --no-check-all
+# # name: Build and deploy
+# # on:
+# #   push:
+# #     branches: [main]
+# #   pull_request:
+# #     branches: [main]
+# # jobs:
+# #   buildComposer:
+# #     runs-on: ubuntu-latest
+# #     steps:
+# #       - uses: actions/checkout@v2
+# #       # Install and build with Composer
+# #       - name: Validate composer.json and composer.lock
+# #         run: composer validate --no-check-all
 
-#       - name: Install Composer dependencies root
-#         run:  composer install --ignore-platform-reqs
+# #       - name: Install Composer dependencies root
+# #         run:  composer install --ignore-platform-reqs
 
-#       - name: Install composer in theme
-#         working-directory: ./web/app/themes/sage
-#         run: |
-#           composer install --ignore-platform-reqs
+# #       - name: Install composer in theme
+# #         working-directory: ./web/app/themes/sage
+# #         run: |
+# #           composer install --ignore-platform-reqs
   
-#   buildNodeModules:
-#     needs: [buildComposer]
+# #   buildNodeModules:
+# #     needs: [buildComposer]
+# #     runs-on: ubuntu-latest
+# #     steps:
+# #         - uses: actions/checkout@v2 
+# #         - uses: actions/setup-node@v2
+# #           with:
+# #             node-version: '14'
+# #         - name: Install node modules 
+# #           working-directory: ./web/app/themes/sage
+# #           run: yarn install
+
+# #   deploy:
+# #     needs: [buildComposer,buildNodeModules]
+# #     name: Deploy
+# #     runs-on: ubuntu-latest 
+# #     steps:
+# #         - uses: actions/checkout@v2
+# #         - name: Deploy to Server
+# #           uses: easingthemes/ssh-deploy@main
+# #           env:
+# #               SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+# #               ARGS: "-rltgoDzvO --delete"
+# #               SOURCE: "/"
+# #               REMOTE_HOST: ${{ secrets.DEPLOY_HOST }}
+# #               REMOTE_USER: ${{ secrets.DEPLOY_USER }}
+# #               REMOTE_PORT: 21098
+# #               TARGET: /home2/batowebd/bato-starter
+# #         # - name: Install SSH Key
+# #         #   uses: shimataro/ssh-key-action@v2
+# #         #   with:
+# #         #     key: ${{ secrets.DEPLOY_KEY }}
+# #         #     known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+# #         # - name: Adding Known Hosts
+# #         #   run: ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts     
+# #         # - name: Deploy with rsync
+# #         #   run: rsync -avze "ssh -p 21098 -i ${{ secrets.DEPLOY_KEY }}" ./ ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/home2/batowebd/bato-starter
+# #     # - name: Deploy to my ❤️
+
+# #     #   uses: up9cloud/action-rsync@master
+# #     #   env:
+# #     #     HOST: ${{ secrets.DEPLOY_HOST }}
+# #     #     KEY: ${{ secrets.DEPLOY_KEY }}
+# #     #     PORT: ${{ secrets.DEPLOY_PORT }}
+# #     #     TARGET: BatoStarter
+# #     #     VERBOSE: true
+# #     #     USER: ${{ secrets.DEPLOY_USER }}
+# #     #     ARGS:  -avz --delete --exclude=/.git/ --exclude=/.github/
+
+
+
+# name: remote ssh command
+# on: [push]
+# jobs:
+#   deploy:
+#       name: Deploy
+#       runs-on: ubuntu-latest 
+#       steps:
+#           - uses: actions/checkout@v2
+#           - name: Deploy to Server
+#             uses: easingthemes/ssh-deploy@main
+#             env:
+#                 SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+#                 ARGS: "-rltgoDzvO --exclude='/home2/batowebd/bato-starter/.env'"
+#                 SOURCE: "/"
+#                 REMOTE_HOST: ${{ secrets.DEPLOY_HOST }}
+#                 REMOTE_USER: ${{ secrets.DEPLOY_USER }}
+#                 REMOTE_PORT: ${{ secrets.DEPLOY_PORT }}
+#                 TARGET: /home2/batowebd/bato-starter
+#   build:
+#     needs: [deploy]
+#     name: Build
 #     runs-on: ubuntu-latest
 #     steps:
-#         - uses: actions/checkout@v2 
-#         - uses: actions/setup-node@v2
-#           with:
-#             node-version: '14'
-#         - name: Install node modules 
-#           working-directory: ./web/app/themes/sage
-#           run: yarn install
-
-#   deploy:
-#     needs: [buildComposer,buildNodeModules]
-#     name: Deploy
-#     runs-on: ubuntu-latest 
-#     steps:
-#         - uses: actions/checkout@v2
-#         - name: Deploy to Server
-#           uses: easingthemes/ssh-deploy@main
-#           env:
-#               SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
-#               ARGS: "-rltgoDzvO --delete"
-#               SOURCE: "/"
-#               REMOTE_HOST: ${{ secrets.DEPLOY_HOST }}
-#               REMOTE_USER: ${{ secrets.DEPLOY_USER }}
-#               REMOTE_PORT: 21098
-#               TARGET: /home2/batowebd/bato-starter
-#         # - name: Install SSH Key
-#         #   uses: shimataro/ssh-key-action@v2
-#         #   with:
-#         #     key: ${{ secrets.DEPLOY_KEY }}
-#         #     known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
-#         # - name: Adding Known Hosts
-#         #   run: ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts     
-#         # - name: Deploy with rsync
-#         #   run: rsync -avze "ssh -p 21098 -i ${{ secrets.DEPLOY_KEY }}" ./ ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/home2/batowebd/bato-starter
-#     # - name: Deploy to my ❤️
-
-#     #   uses: up9cloud/action-rsync@master
-#     #   env:
-#     #     HOST: ${{ secrets.DEPLOY_HOST }}
-#     #     KEY: ${{ secrets.DEPLOY_KEY }}
-#     #     PORT: ${{ secrets.DEPLOY_PORT }}
-#     #     TARGET: BatoStarter
-#     #     VERBOSE: true
-#     #     USER: ${{ secrets.DEPLOY_USER }}
-#     #     ARGS:  -avz --delete --exclude=/.git/ --exclude=/.github/
+#     - name: executing remote ssh commands using key
+#       uses: appleboy/ssh-action@master
+#       with:
+#         host: ${{ secrets.DEPLOY_HOST }}
+#         username: ${{ secrets.DEPLOY_USER }}
+#         key: ${{ secrets.DEPLOY_KEY }}
+#         port: ${{ secrets.DEPLOY_PORT }}
+#         script: |
+#           export NVM_DIR="$HOME/.nvm"
+#           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+#           npm -v
+#           cd bato-starter && composer install --no-dev
+#           cd web/app/themes/sage && composer install --no-dev && yarn && yarn build
 
 
+name: Build and deploy
 
-name: remote ssh command
-on: [push]
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
 jobs:
-  deploy:
-      name: Deploy
-      runs-on: ubuntu-latest 
-      steps:
-          - uses: actions/checkout@v2
-          - name: Deploy to Server
-            uses: easingthemes/ssh-deploy@main
-            env:
-                SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
-                ARGS: "-rltgoDzvO --exclude='/home2/batowebd/bato-starter/.env'"
-                SOURCE: "/"
-                REMOTE_HOST: ${{ secrets.DEPLOY_HOST }}
-                REMOTE_USER: ${{ secrets.DEPLOY_USER }}
-                REMOTE_PORT: 21098
-                TARGET: /home2/batowebd/bato-starter
   build:
-    needs: [deploy]
-    name: Build
     runs-on: ubuntu-latest
+
     steps:
-    - name: executing remote ssh commands using key
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.DEPLOY_HOST }}
-        username: ${{ secrets.DEPLOY_USER }}
-        key: ${{ secrets.DEPLOY_KEY }}
-        port: ${{ secrets.DEPLOY_PORT }}
-        script: |
-          export NVM_DIR="$HOME/.nvm"
-          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-          npm -v
-          cd bato-starter && composer install --no-dev
-          cd web/app/themes/sage && composer install --no-dev && npm i && npm run build
+      - uses: actions/checkout@v2
+      # Install and build with Composer
+      - name: Validate composer.json and composer.lock
+        run: composer validate --no-check-all
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install Composer dependencies
+        if: ${{ contains(github.event.head_commit.message, 'purge') || steps.composer-cache.outputs.cache-hit != 'true' }}
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-${{ env.cache-name }}-
+            ${{ runner.os }}-npm-
+            ${{ runner.os }}-
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build:deploy
+
+      # Deploy with SSH
+      - name: Copying files to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          source: ".,!.babelrc,!.env.example,!.git*,!./*.json,!*.lock,!*.md,!*.config.js,!./assets,!node_modules"
+          target: /home2/batowebd/bato-starter
+          rm: ${{ contains(github.event.head_commit.message, 'purge') }}
