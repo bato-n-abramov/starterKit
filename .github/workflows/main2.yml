@@ -105,7 +105,6 @@ jobs:
         script: |
           export NVM_DIR="$HOME/.nvm"
           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-          nvm install --lts
           npm -v
           cd bato-starter && composer install --no-dev
           cd web/app/themes/sage && composer install --no-dev && npm i && npm uninstall --save-dev node-sass && npm install --save-dev node-sass && npm run build
