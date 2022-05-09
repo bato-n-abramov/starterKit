@@ -146,7 +146,7 @@ jobs:
 
       - name: Install dependencies and Build
         run: |
-          cd web/app/themes/sage && composer self-update --rollback && composer install 
+          cd web/app/themes/sage && composer install 
       # Deploy with SSH
       # - name: Copying files to server
       #   uses: appleboy/scp-action@master
