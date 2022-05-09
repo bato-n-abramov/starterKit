@@ -125,36 +125,28 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       # Install and build with Composer
-      - name: Validate composer.json and composer.lock
-        run: composer validate --no-check-all
+      # - name: Validate composer.json and composer.lock
+      #   run: composer validate --no-check-all
 
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v2
-        with:
-          path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-php-
-      - uses: actions/checkout@v1    
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 7.4
-      - name: Install Composer dependencies
-        if: ${{ contains(github.event.head_commit.message, 'purge') || steps.composer-cache.outputs.cache-hit != 'true' }}
-        run: composer install --prefer-dist --no-progress --no-suggest
-
-      - uses: actions/setup-node@v3
-        with:
-          version: 14.x
+      # - name: Cache Composer packages
+      #   id: composer-cache
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: vendor
+      #     key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-php-
+      # - uses: actions/checkout@v1    
+      # - name: Setup PHP
+      #   uses: shivammathur/setup-php@v2
+      #   with:
+      #     php-version: 7.4
+      # - name: Install Composer dependencies
+      #   run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: Install dependencies and Build
         run: |
-          cd web/app/themes/sage && composer install && yarn && yarn remove node-sass && yarn add node-sass && yarn rebuild node-sass && yarn build
-# npm uninstall node-sass
-# npm i node-sass
-# npm rebuild node-sass
+          cd web/app/themes/sage && composer install && yarn && yarn build
       # Deploy with SSH
       - name: Copying files to server
         uses: appleboy/scp-action@master
