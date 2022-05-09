@@ -153,7 +153,7 @@ jobs:
 
       - name: Install dependencies and Build
         run: |
-          cd web/app/themes/sage &&  composer install -o && yarn && yarn build
+          cd web/app/themes/sage &&  composer install -o && yarn install --force && yarn build
 
       # Deploy with SSH
       - name: Copying files to server
