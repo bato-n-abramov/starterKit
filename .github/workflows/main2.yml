@@ -151,7 +151,7 @@ jobs:
 
       - name: Install dependencies and Build
         run: |
-          cd web/app/themes/sage && node -v && yarn -v 
+          cd web/app/themes/sage && composer install && yarn && yarn remove node-sass && yarn add node-sass && yarn rebuild node-sass && yarn build
 # npm uninstall node-sass
 # npm i node-sass
 # npm rebuild node-sass
@@ -161,7 +161,7 @@ jobs:
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
+          port : ${{secrets.DEPLOY_PORT}}
           key: ${{ secrets.DEPLOY_KEY }}
           source: ".,!.babelrc,!.env.example,!.git*,!./*.json,!*.lock,!*.md,!*.config.js,!./assets,!node_modules"
-          target: /home2/batowebd/bato-starter
-          rm: ${{ contains(github.event.head_commit.message, 'purge') }}
+          target: /bato-starter
