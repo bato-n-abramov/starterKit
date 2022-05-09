@@ -123,20 +123,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      # Install and build with Composer
-      # - name: Validate composer.json and composer.lock
-      #   run: composer validate --no-check-all
-
-      # - name: Cache Composer packages
-      #   id: composer-cache
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: vendor
-      #     key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-php-
-      # - uses: actions/checkout@v1    
+      - uses: actions/checkout@v2  
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
