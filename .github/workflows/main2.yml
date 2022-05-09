@@ -159,4 +159,4 @@ jobs:
           port : ${{secrets.DEPLOY_PORT}}
           key: ${{ secrets.DEPLOY_KEY }}
           source: ".,!.babelrc,!.env.example,!.git*,!./*.json,!*.lock,!*.md,!*.config.js,!./assets,!node_modules"
-          target: /bato-starter
+          target: "bato-starter"
