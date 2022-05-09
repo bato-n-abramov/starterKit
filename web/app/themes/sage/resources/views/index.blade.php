@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@dump('Deploy Work')
+@dump('Deploy Work Nice')
 @section('content')
   @include('partials.page-header')
 
