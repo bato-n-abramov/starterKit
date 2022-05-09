@@ -145,11 +145,18 @@ jobs:
         if: ${{ contains(github.event.head_commit.message, 'purge') || steps.composer-cache.outputs.cache-hit != 'true' }}
         run: composer install --prefer-dist --no-progress --no-suggest
 
-      - name: Install Dependencies
-        run: cd web/app/themes/sage && composer install
+      - uses: actions/checkout@v2
 
+      - uses: actions/setup-node@v1.1.0
+        with:
+          version: 14.x
+
+      - name: Install dependencies
+        run: |
+          composer install -o
+          yarn
       - name: Build
-        run: cd web/app/themes/sage && yarn build
+        run: yarn build
 
       # Deploy with SSH
       - name: Copying files to server
