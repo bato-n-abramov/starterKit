@@ -146,11 +146,10 @@ jobs:
       - name: Install dependencies and Build
         run: |
           cd web/app/themes/sage && composer install
-      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 14
-      - run: cd web/app/themes/sage yarn && yarn build
+      - run: cd web/app/themes/sage && yarn && yarn build
       # Deploy with SSH
       # - name: Copying files to server
       #   uses: appleboy/scp-action@master
