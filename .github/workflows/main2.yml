@@ -158,7 +158,7 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install Dependencies
-        run: cd web/app/themes/sage && npm install
+        run: cd web/app/themes/sage && yarn
 
       - name: Build
         run: cd web/app/themes/sage && npm run build:deploy
