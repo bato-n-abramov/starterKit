@@ -2,7 +2,9 @@
 @dump(get_stylesheet_directory())
 @section('content')
   @include('partials.page-header')
-
+@php 
+var_dump('11111');
+@endphp
   @if (!have_posts())
     <div class="alert alert-warning">
       {{ __('Sorry, no results were found.', 'sage') }}
